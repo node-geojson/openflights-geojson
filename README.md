@@ -1,4 +1,4 @@
-# openflights-data
+# openflights-geojson
 
 Download and reformat [OpenFlights.org](http://openflights.org/) data
 into [GeoJSON](http://geojson.org/).
