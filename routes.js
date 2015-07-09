@@ -11,7 +11,7 @@ var got = require('got'),
  *
  * http://openflights.org/data.html#route
  */
-got('https://sourceforge.net/p/openflights/code/HEAD/tree/openflights/data/airports.dat?format=raw')
+got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat')
     .pipe(csv({
         headers: [
             'id',
@@ -33,7 +33,7 @@ got('https://sourceforge.net/p/openflights/code/HEAD/tree/openflights/data/airpo
         return memo;
     }, {}))
     .on('data', function(airports) {
-        got('https://sourceforge.net/p/openflights/code/HEAD/tree/openflights/data/routes.dat?format=raw')
+        got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat')
             .pipe(csv({
                 headers: [
                     'airline',

@@ -10,7 +10,7 @@ var got = require('got'),
  *
  * http://openflights.org/data.html#airport
  */
-got('https://sourceforge.net/p/openflights/code/HEAD/tree/openflights/data/airports.dat?format=raw')
+got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat')
     .pipe(csv({
         headers: [
             'id',
