@@ -1,6 +1,6 @@
 {
   "name": "openflights-geojson",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "parse and output openflights data",
   "main": "airports.js",
   "dependencies": {
