@@ -1,4 +1,4 @@
-# openflights-data
+# openflights-geojson
 
 Download and reformat [OpenFlights.org](http://openflights.org/) data
 into [GeoJSON](http://geojson.org/).
@@ -6,7 +6,7 @@ into [GeoJSON](http://geojson.org/).
 ## Usage
 
 ```sh
-$ npm install -g openflights-data
+$ npm install -g openflights-geojson
 ```
 
 Download airport data, convert to GeoJSON, write to stdout.
