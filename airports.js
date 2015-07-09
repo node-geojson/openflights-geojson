@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var got = require('got'),
+    omit = require('lodash.omit'),
     csv = require('csv-parser'),
     through = require('through2'),
     geojsonStream = require('geojson-stream');
@@ -30,7 +31,7 @@ got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports
     .pipe(through.obj(function(row, enc, cb) {
         this.push({
             type: 'Feature',
-            properties: row,
+            properties: omit(row, ['lat', 'lng']),
             geometry: {
                 type: 'Point',
                 coordinates: [

@@ -2,6 +2,7 @@
 
 var got = require('got'),
     reduce = require('stream-reduce'),
+    omit = require('lodash.omit'),
     csv = require('csv-parser'),
     through = require('through2'),
     geojsonStream = require('geojson-stream');
@@ -51,7 +52,7 @@ got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports
                 try {
                     this.push({
                         type: 'Feature',
-                        properties: row,
+                        properties: omit(row, ['lat', 'lng']),
                         geometry: {
                             type: 'LineString',
                             coordinates: [
