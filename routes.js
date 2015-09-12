@@ -4,6 +4,8 @@ var got = require('got'),
     reduce = require('stream-reduce'),
     omit = require('lodash.omit'),
     csv = require('csv-parser'),
+    arc = require('arc'),
+    argv = require('minimist')(process.argv.slice(2)),
     through = require('through2'),
     geojsonStream = require('geojson-stream');
 
@@ -50,10 +52,30 @@ got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports
             }))
             .pipe(through.obj(function(row, enc, cb) {
                 try {
-                    this.push({
-                        type: 'Feature',
-                        properties: omit(row, ['lat', 'lng']),
-                        geometry: {
+                    var geometry;
+                    if (!(airports[row.dst_id] && airports[row.src_id])) {
+                        return cb();
+                    }
+                    if (row.dst_id === row.src_id) {
+                        return cb();
+                    }
+                    if ([
+                        airports[row.dst_id].lng,
+                        airports[row.dst_id].lat,
+                        airports[row.src_id].lat,
+                        airports[row.src_id].lng].some(isNaN)) {
+                        throw new Error('bad coord');
+                    }
+                    if (argv.arc) {
+                        geometry = (new arc.GreatCircle({
+                            x: parseFloat(airports[row.src_id].lng),
+                            y: parseFloat(airports[row.src_id].lat)
+                        }, {
+                            x: parseFloat(airports[row.dst_id].lng),
+                            y: parseFloat(airports[row.dst_id].lat)
+                        })).Arc(50).json().geometry;
+                    } else {
+                        geometry = {
                             type: 'LineString',
                             coordinates: [
                                 [ parseFloat(airports[row.src_id].lng),
@@ -61,7 +83,12 @@ got('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports
                                 [ parseFloat(airports[row.dst_id].lng),
                                   parseFloat(airports[row.dst_id].lat) ]
                             ]
-                        }
+                        };
+                    }
+                    this.push({
+                        type: 'Feature',
+                        properties: omit(row, ['lat', 'lng']),
+                        geometry: geometry
                     });
                 } catch (e) {
                     console.error('encountered some bad data (some openflights routes are missing destinations)', e);
