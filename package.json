@@ -1,0 +1,29 @@
+{
+  "name": "openflights-geojson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo index.js --serve=bundle.js --live",
+    "build": "browserify index.js > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmcw/openflights-geojson.git"
+  },
+  "browserify": {
+    "transform": ["babelify"]
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmcw/openflights-geojson/issues"
+  },
+  "homepage": "https://github.com/tmcw/openflights-geojson",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "budo": "^4.2.1",
+    "react": "^0.13.3",
+    "watchify": "^3.4.0"
+  }
+}
