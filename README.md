@@ -1,5 +1,7 @@
 # openflights-geojson
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tmcw/openflights-geojson.svg)](https://greenkeeper.io/)
+
 Download and reformat [OpenFlights.org](http://openflights.org/) data
 into [GeoJSON](http://geojson.org/).
 
